@@ -23,6 +23,8 @@ class BalanceService
                 ]);
             }
 
+            sleep(5);
+
             $account->balance = $type === TransactionType::Credit
                 ? $account->balance + $amount
                 : $account->balance - $amount;
