@@ -10,8 +10,8 @@ class BalanceResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'user_id' => $this->resource->user_id,
-            'balance' => $this->resource->account->balance / 100,
+            'user_id' => $this->resource->account->user_id,
+            'balance' => $this->resource->account->balance,
             'last_transaction_at' => $this->resource->transaction->created_at->toIso8601ZuluString(),
         ];
     }

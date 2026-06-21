@@ -25,7 +25,7 @@ class BalanceController extends Controller
         $result = $this->balanceService->process(
             $user->id,
             $request->integer('amount'),
-            $request->enum('transaction_type', TransactionType::class)
+            $request->enum('type', TransactionType::class)
         );
 
         return BalanceResource::make($result)->response();
