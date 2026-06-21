@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTOs\BalanceResult;
 use App\Enums\TransactionType;
 use App\Models\Account;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class BalanceService
 {
-    public function process(int $userId, int $amount, TransactionType $type): Account
+    public function process(int $userId, int $amount, TransactionType $type): BalanceResult
     {
         return DB::transaction(function () use ($userId, $amount, $type) {
             $account = Account::where('user_id', $userId)
@@ -26,12 +27,15 @@ class BalanceService
                 ? $account->balance + $amount
                 : $account->balance - $amount;
             $account->save();
-            $account->transactions()->create([
+            $transaction = $account->transactions()->create([
                 'amount' => $amount,
                 'type' => $type,
             ]);
-            
-            return $account;
+
+            return new BalanceResult(
+                account: $account,
+                transaction: $transaction
+            );
         });
     }
 }
