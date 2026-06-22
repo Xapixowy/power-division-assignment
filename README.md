@@ -16,29 +16,25 @@ REST API for charging and topping up a user's account.
    cp .env.example .env
 ```
 
-3. Fill in `.env`:
-    - `APP_KEY` — generate after starting containers (step 5)
-    - `DB_PASSWORD` — any password, e.g. `secret`
-    - `API_KEY` — any key, e.g. `my-secret-key`
-4. Install dependencies
+3. Install dependencies
 
 ```bash
    docker run --rm -v $(pwd):/app composer install
 ```
 
-5. Start containers
+4. Start containers
 
 ```bash
    ./vendor/bin/sail up -d
 ```
 
-6. Generate application key
+5. Generate application key
 
 ```bash
    ./vendor/bin/sail artisan key:generate
 ```
 
-7. Run migrations and seeder
+6. Run migrations and seeder
 
 ```bash
    ./vendor/bin/sail artisan migrate --seed
